@@ -52,14 +52,15 @@ const signUpService = async (reqBody: SignUpReqBodyType, orgSubdomain: string) =
             eq(rolesTable.organizationId, organizationObj.orgId)
           )
         );
-      
-      if(organizationObj && roleObj) {
+
+      // Assign user role to the created user.
+      if (organizationObj && roleObj) {
         await tx.insert(userRoleMapTable)
-        .values({
-          roleId: roleObj.roleId,
-          organizationId: organizationObj.orgId,
-          userId: createdUser.userId
-        })
+          .values({
+            roleId: roleObj.roleId,
+            organizationId: organizationObj.orgId,
+            userId: createdUser.userId
+          })
       }
     });
 
@@ -68,8 +69,7 @@ const signUpService = async (reqBody: SignUpReqBodyType, orgSubdomain: string) =
       createdUser,
     };
   } catch (error: any) {
-    console.log({ error })
-    throw new Error("Something went wrong, please try again later.");
+    throw new Error("signUpService: Something went wrong, please try again later.");
   }
 }
 

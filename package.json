@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "argon2": "^0.44.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
@@ -24,7 +25,9 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.20.0",
     "drizzle-kit": "^0.31.10",
     "tsx": "^4.21.0",

@@ -4,7 +4,14 @@ type ResponseBody = {
   data: any;
 }
 
+type JwtPayloadType = {
+  userId: string,
+  roles: string[],
+  orgSubdomain: string
+}
+
 export type {
-  ResponseBody
+  ResponseBody,
+  JwtPayloadType
 }
 

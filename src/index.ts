@@ -3,10 +3,14 @@ import express from "express";
 import { apiV1Router } from "./routers/apiV1Router";
 import "./config/drizzle/connection";
 import { errorHandlerMiddleware } from "./middleware/errorHandler";
+import { checkForTenantSlugHeader } from "./middleware/checkForTenantSlugHeader";
+import cookieParser from "cookie-parser";
 
 const port = process.env.PORT || 5000;
 const app = express();
 
+app.use(checkForTenantSlugHeader);
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/v1", apiV1Router);
