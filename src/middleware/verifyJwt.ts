@@ -5,7 +5,8 @@ import { rolesTable } from "../config/drizzle/schema";
 import { JwtPayloadType, ResponseBody } from "../types";
 import { verifyJwtAsync } from "../utils/utils";
 
-const verifyJwt = (roleToCheck?: string) => {
+// The user should have atleast one of the rolesToCheck role.
+const verifyJwt = (rolesToCheck?: string[]) => {
   const handler: RequestHandler = async (req, res, next) => {
     const authHeader = req.headers["authorization"];
     if (!authHeader) {
@@ -27,6 +28,7 @@ const verifyJwt = (roleToCheck?: string) => {
           algorithms: ["ES512"]
         }
       ) as JwtPayloadType;
+
     } catch (err: any) {
       res.status(401).send({
         success: false,
@@ -36,11 +38,23 @@ const verifyJwt = (roleToCheck?: string) => {
       return;
     }
 
-    if (roleToCheck && decodedPayload) {
-      const roles = await db.select({ roleName: rolesTable.role })
-        .from(rolesTable)
-        .where(inArray(rolesTable.id, decodedPayload.roles))
-      const foundRole = roles.find(obj => obj.roleName === roleToCheck);
+    const roles = await db.select({ roleName: rolesTable.role })
+      .from(rolesTable)
+      .where(inArray(rolesTable.id, decodedPayload.roles));
+    const userRolesStrArr = roles.map(roleObj => roleObj.roleName);
+    req.jwtPayload = {
+      ...decodedPayload,
+      roles: userRolesStrArr
+    };
+
+    if (rolesToCheck?.length && decodedPayload) {
+      let foundRole = false;
+      for (let i = 0; i < rolesToCheck.length; i++) {
+        if (userRolesStrArr.includes(rolesToCheck[i])) {
+          foundRole = true;
+          break;
+        }
+      }
       if (foundRole) {
         next();
       } else {

@@ -34,7 +34,8 @@ const refreshTokenService = async (refreshToken: string) => {
         {
           userId: decodedPayload.userId,
           roles: decodedPayload.roles,
-          orgSubdomain: decodedPayload.orgSubdomain
+          organizationSubdomain: decodedPayload.organizationSubdomain,
+          organizationId: decodedPayload.organizationId
         },
         process.env.ACCESS_TOKEN_JWT_PRIVATE_KEY!,
         {

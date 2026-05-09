@@ -14,7 +14,7 @@ const isReqBodyValid = (zodObject: z.ZodObject) => {
     }
     try {
       const isValid = Boolean(zodObject.parse(reqBody));
-      if(isValid) {
+      if (isValid) {
         next();
       }
     } catch (err: any) {

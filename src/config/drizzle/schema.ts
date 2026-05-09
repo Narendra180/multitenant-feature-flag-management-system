@@ -14,7 +14,7 @@ const usersTable = pgTable(
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().$onUpdate(() => new Date()).notNull(),
     email: varchar("email", { length: 300 }).unique().notNull(),
     password: varchar("password", { length: 100 }).notNull(),
-    refreshToken: varchar("refresh_token", { length: 500 })
+    refreshToken: varchar("refresh_token", { length: 3000 })
   }
 );
 
@@ -83,16 +83,18 @@ const featureFlagsTable = pgTable(
     id: uuid("id").defaultRandom().notNull().primaryKey(),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().$onUpdate(() => new Date()).notNull(),
+    key: varchar("key", { length: 500 }).notNull(),
     organizationId: uuid("organization_id").notNull(),
-    isEnabled: boolean("is_enabled").notNull()
+    isEnabled: boolean("is_enabled").default(false).notNull()
   },
   (table) => {
     return [
       foreignKey({
         name: "fk_org_id",
-        columns: [table.id],
+        columns: [table.organizationId],
         foreignColumns: [organizationsTable.id]
-      })
+      }),
+      unique("uq_feature_key_org_id").on(table.key, table.organizationId)
     ]
   }
 )

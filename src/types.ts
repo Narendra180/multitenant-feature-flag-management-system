@@ -5,9 +5,10 @@ type ResponseBody = {
 }
 
 type JwtPayloadType = {
-  userId: string,
-  roles: string[],
-  orgSubdomain: string
+  userId: string;
+  roles: string[];
+  organizationSubdomain: string;
+  organizationId: string;
 }
 
 export type {

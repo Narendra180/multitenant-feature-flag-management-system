@@ -7,8 +7,8 @@ import { createOrgReqBodyZodObj } from "./createOrganization/createOrganization.
 
 const organizationRouter = Router();
 
-organizationRouter.get("/", verifyJwt("superadmin"), getAllOrganizationsController);
-organizationRouter.post("/", verifyJwt(), isReqBodyValid(createOrgReqBodyZodObj), createOrganizationController)
+organizationRouter.get("/", verifyJwt(["superadmin"]), getAllOrganizationsController);
+organizationRouter.post("/", verifyJwt(["superadmin"]), isReqBodyValid(createOrgReqBodyZodObj), createOrganizationController)
 
 export {
   organizationRouter

@@ -40,7 +40,7 @@ CREATE TABLE "users" (
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"email" varchar(300) NOT NULL,
 	"password" varchar(100) NOT NULL,
-	"refresh_token" varchar(500),
+	"refresh_token" varchar(3000),
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint

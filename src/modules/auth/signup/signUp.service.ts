@@ -52,6 +52,10 @@ const signUpService = async (reqBody: SignUpReqBodyType, orgSubdomain: string) =
             eq(rolesTable.organizationId, organizationObj.orgId)
           )
         );
+      
+      if(!roleObj) {
+        throw new Error("role not found in this organization");
+      }
 
       // Assign user role to the created user.
       if (organizationObj && roleObj) {

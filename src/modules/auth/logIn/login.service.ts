@@ -61,7 +61,8 @@ const loginService = async (reqBody: loginReqBodyType, orgSubdomain: string) => 
       {
         userId: userObj.userId,
         roles: roleIds,
-        organizationSubdomain: orgSubdomain
+        organizationSubdomain: orgSubdomain,
+        organizationId: organization.orgId
       },
       process.env.ACCESS_TOKEN_JWT_PRIVATE_KEY!,
       {
@@ -74,7 +75,8 @@ const loginService = async (reqBody: loginReqBodyType, orgSubdomain: string) => 
       {
         userId: userObj.userId,
         roles: roleIds,
-        organizationSubdomain: orgSubdomain
+        organizationSubdomain: orgSubdomain,
+        organizationId: organization.orgId
       },
       process.env.REFRESH_TOKEN_JWT_PRIVATE_KEY!,
       {
