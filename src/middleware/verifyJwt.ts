@@ -8,17 +8,17 @@ import { verifyJwtAsync } from "../utils/utils";
 // The user should have atleast one of the rolesToCheck role.
 const verifyJwt = (rolesToCheck?: string[]) => {
   const handler: RequestHandler = async (req, res, next) => {
-    const authHeader = req.headers["authorization"];
-    if (!authHeader) {
+    const cookies = req.cookies;
+    if (!cookies?.access_token) {
       res.status(401).send({
         success: false,
         message: "Unauthorized",
-        data: null
+        data: "Invalid Token"
       } as ResponseBody)
       return;
     }
 
-    const accessToken = authHeader.split(' ')[1];
+    const accessToken = cookies.access_token;
     let decodedPayload = null;
     try {
       decodedPayload = await verifyJwtAsync(
@@ -33,7 +33,7 @@ const verifyJwt = (rolesToCheck?: string[]) => {
       res.status(401).send({
         success: false,
         message: "Unauthorized",
-        data: null
+        data: "Invalid Token"
       } as ResponseBody);
       return;
     }

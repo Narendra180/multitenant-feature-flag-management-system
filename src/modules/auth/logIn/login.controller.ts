@@ -20,7 +20,7 @@ const loginController: RequestHandler = async (req, res) => {
     const refreshToken = data.refreshToken!;
 
     res.cookie(
-      "jwt",
+      "refresh_token",
       refreshToken,
       {
         httpOnly: true,
@@ -28,14 +28,23 @@ const loginController: RequestHandler = async (req, res) => {
         secure: true,
         maxAge: 1000 * 60 * 60 * 24 * 7
       }
-    )
+    );
+
+    res.cookie(
+      "access_token",
+      accessToken,
+      {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: true,
+        maxAge: 1000 * 60 * 15
+      }
+    );
 
     const respBody: ResponseBody = {
       message: "Logged in sucessfully.",
       success: true,
-      data: {
-        accessToken
-      },
+      data: null
     }
     res.status(200).send(respBody);
     return;

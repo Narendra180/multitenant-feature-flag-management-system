@@ -5,10 +5,14 @@ import "./config/drizzle/connection";
 import { errorHandlerMiddleware } from "./middleware/errorHandler";
 import { checkForTenantSlugHeader } from "./middleware/checkForTenantSlugHeader";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+import { corsOptions } from "./config/cors";
 
 const port = process.env.PORT || 5000;
 const app = express();
 
+app.set('trust proxy', true);
+app.use(cors(corsOptions));
 app.use(checkForTenantSlugHeader);
 app.use(cookieParser());
 app.use(express.json());

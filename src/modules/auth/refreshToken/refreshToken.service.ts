@@ -47,9 +47,7 @@ const refreshTokenService = async (refreshToken: string) => {
       const respBody: ResponseBody = {
         success: true,
         message: "Refreshed token successfully.",
-        data: {
-          accessToken
-        }
+        data: null
       }
       return {
         statusCode: 200,
