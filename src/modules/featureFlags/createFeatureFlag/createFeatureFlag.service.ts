@@ -5,11 +5,12 @@ import type { CreateFeatureFlagReqBodyType } from "./createFeatureFlag.schema"
 const createFeatureFlagService = async (reqBody: CreateFeatureFlagReqBodyType, organizationId: string) => {
   try {
     const {
-      key
+      key, isEnabled
     } = reqBody;
 
     const [createdFeatureFlag] = await db.insert(featureFlagsTable).values({
       key,
+      isEnabled,
       organizationId
     }).returning();
 

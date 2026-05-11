@@ -12,7 +12,7 @@ const refreshTokenService = async (refreshToken: string) => {
 
     const invalidRespBody: ResponseBody = {
       success: false,
-      message: "Invalid refresh token.",
+      message: "Invalid Token.",
       data: null
     }
     if (!userWithRefreshToken) {
@@ -32,6 +32,7 @@ const refreshTokenService = async (refreshToken: string) => {
 
       const accessToken = await signJwtAsync(
         {
+          email: decodedPayload.email,
           userId: decodedPayload.userId,
           roles: decodedPayload.roles,
           organizationSubdomain: decodedPayload.organizationSubdomain,
@@ -51,10 +52,10 @@ const refreshTokenService = async (refreshToken: string) => {
       }
       return {
         statusCode: 200,
-        data: respBody
+        data: respBody,
+        accessToken
       }
     } catch (err) {
-      console.log(err)
       return {
         statusCode: 403,
         data: invalidRespBody

@@ -7,11 +7,13 @@ import { checkForTenantSlugHeader } from "./middleware/checkForTenantSlugHeader"
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { corsOptions } from "./config/cors";
+import morgan from "morgan";
 
 const port = process.env.PORT || 5000;
 const app = express();
 
 app.set('trust proxy', true);
+app.use(morgan('combined'));
 app.use(cors(corsOptions));
 app.use(checkForTenantSlugHeader);
 app.use(cookieParser());

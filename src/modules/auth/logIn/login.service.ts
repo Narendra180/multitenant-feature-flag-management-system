@@ -18,12 +18,13 @@ const loginService = async (reqBody: loginReqBodyType, orgSubdomain: string) => 
       passwordHash: usersTable.password,
       orgId: userRoleMapTable.organizationId,
     }).from(usersTable)
+      .leftJoin(userRoleMapTable, and(eq(userRoleMapTable.userId, usersTable.id), eq(userRoleMapTable.organizationId, organization.orgId)))
       .where(
         and(
-          eq(usersTable.email, email)
+          eq(usersTable.email, email),
+          eq(userRoleMapTable.organizationId, organization.orgId)
         )
       )
-      .leftJoin(userRoleMapTable, and(eq(userRoleMapTable.userId, usersTable.id), eq(userRoleMapTable.organizationId, organization.orgId)))
 
     if (!userObj) {
       return {
@@ -59,6 +60,7 @@ const loginService = async (reqBody: loginReqBodyType, orgSubdomain: string) => 
 
     const accessToken = await signJwtAsync(
       {
+        email: userObj.email,
         userId: userObj.userId,
         roles: roleIds,
         organizationSubdomain: orgSubdomain,
@@ -73,6 +75,7 @@ const loginService = async (reqBody: loginReqBodyType, orgSubdomain: string) => 
 
     const refreshToken = await signJwtAsync(
       {
+        email: userObj.email,
         userId: userObj.userId,
         roles: roleIds,
         organizationSubdomain: orgSubdomain,

@@ -11,9 +11,9 @@ import { deleteFeatureFlagController } from "./deleteFeatureFlag/deleteFeatureFl
 const featureFlagsRouter = Router();
 
 featureFlagsRouter.get("/", verifyJwt(), getAllFeatureFlagsController);
-featureFlagsRouter.post("/", verifyJwt(["superadmin"]), isReqBodyValid(createFeatureFlagReqBodyZodObj), createFeatureFlagController);
-featureFlagsRouter.patch("/:flagid", verifyJwt(["superadmin"]), isReqBodyValid(updateFeatureFlagReqBodyZodObj), updateFeatureFlagController);
-featureFlagsRouter.delete("/:flagid", verifyJwt(["superadmin"]), deleteFeatureFlagController);
+featureFlagsRouter.post("/", verifyJwt(["admin", "superadmin"]), isReqBodyValid(createFeatureFlagReqBodyZodObj), createFeatureFlagController);
+featureFlagsRouter.patch("/:flagid", verifyJwt(["admin", "superadmin"]), isReqBodyValid(updateFeatureFlagReqBodyZodObj), updateFeatureFlagController);
+featureFlagsRouter.delete("/:flagid", verifyJwt(["admin", "superadmin"]), deleteFeatureFlagController);
 
 export {
   featureFlagsRouter

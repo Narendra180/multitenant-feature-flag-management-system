@@ -9,7 +9,7 @@ const meController: RequestHandler = async (req, res) => {
       message: "Fetched user details successfully.",
       data: jwtPayload
     }
-    res.status(200).send();
+    res.status(200).send(resBody);
     return;
   } else {
     const resBody: ResponseBody = {

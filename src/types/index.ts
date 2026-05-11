@@ -5,6 +5,7 @@ type ResponseBody = {
 }
 
 type JwtPayloadType = {
+  email: string;
   userId: string;
   roles: string[];
   organizationSubdomain: string;
