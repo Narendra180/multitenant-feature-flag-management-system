@@ -19,4 +19,6 @@ REFRESH_TOKEN_JWT_PUBLIC_KEY
 REFRESH_TOKEN_JWT_PRIVATE_KEY
 4. Created database and run drizzle migrate in project root.
 ``npm run drizzle:migrate``
-5. Run the command ``npm run dev`` to run the project.
+5. Run seed script (which will create roles, 10 test organizations and a root organization).\
+``npm run drizzle:seed-data``
+6. Run the command ``npm run dev`` to run the project.
