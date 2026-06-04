@@ -99,6 +99,7 @@ const loginService = async (reqBody: loginReqBodyType, orgSubdomain: string) => 
     }
 
   } catch (error: any) {
+    console.log(error)
     throw new Error("loginService: Something went wrong, please try again later.");
   }
 }
