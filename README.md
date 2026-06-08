@@ -23,6 +23,9 @@ REFRESH_TOKEN_JWT_PRIVATE_KEY
 ``npm run drizzle:seed-data``
 6. Run the command ``npm run dev`` to run the project.
 
+### pm2 start command:
+pm2 start index.js --name "pm2 appname"
+
 ### Demo Video: 
 https://drive.google.com/file/d/13Ymj7nVhyzY1eSA8dO2Agk7spmwko90m/view?usp=sharing
 
